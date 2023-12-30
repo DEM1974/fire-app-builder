@@ -29,15 +29,11 @@
 
 package com.amazon.android.tv.tenfoot.ui.activities;
 
-import com.amazon.android.contentbrowser.ContentBrowser;
+import android.os.Bundle;
+
 import com.amazon.android.tv.tenfoot.R;
 import com.amazon.android.tv.tenfoot.base.BaseActivity;
 import com.amazon.android.tv.tenfoot.utils.BrowseHelper;
-import com.amazon.android.ui.constants.PreferencesConstants;
-import com.amazon.android.utils.Preferences;
-import com.amazon.utils.DateAndTimeHelper;
-
-import android.os.Bundle;
 
 /**
  * An activity class that loads FullContentBrowseFragment to browse the content with a navigation

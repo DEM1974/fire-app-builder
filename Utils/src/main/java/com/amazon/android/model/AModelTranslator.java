@@ -1,12 +1,12 @@
 /**
  * Copyright 2015-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * A copy of the License is located at
- *
- *     http://aws.amazon.com/apache2.0/
- *
+ * <p>
+ * http://aws.amazon.com/apache2.0/
+ * <p>
  * or in the "license" file accompanying this file. This file is distributed
  * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
  * express or implied. See the License for the specific language governing
@@ -16,9 +16,16 @@ package com.amazon.android.model;
 
 import com.amazon.android.recipe.Recipe;
 import com.amazon.android.utils.PathHelper;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -94,14 +101,25 @@ public abstract class AModelTranslator<E> {
             // Extract the path which is located before the path name separator token.
             String fieldPath = path.substring(0, path.indexOf(PATH_NAME_SEPARATOR));
             // Follow the path to get the value
-            Object value = PathHelper.getValueByPath(map, fieldPath);
+            Object value = null;
+            if (fieldName.equals("mUrl")) {
+
+                // Create ObjectMapper
+                Map<String, Object> videoData = (Map<String, Object>) map.get("content");
+                List<Map<String, Object>> videos = (List<Map<String, Object>>) videoData.get("videos");
+                Map<String, Object> video = videos.get(0);  // Assuming you want the first video
+                value = video.get("url");
+
+                String videoUrl = (String) video.get("url");
+                Log.d(TAG, "mapToModel: " + videoUrl);
+            } else value = PathHelper.getValueByPath(map, fieldPath);
             // Try setting the member variable with the value of fieldName to the value found
             // at the end of the path.
             if (!setMemberVariable(object, fieldName, value)) {
                 Log.e(TAG, "Tried to set an invalid member variable during translation: " +
                         fieldName);
                 throw new TranslationException("Tried to set an invalid member variable during " +
-                                                       "translation: " + fieldName);
+                        "translation: " + fieldName);
             }
         }
 
@@ -115,14 +133,14 @@ public abstract class AModelTranslator<E> {
             if (!setMemberVariable(object, Recipe.KEY_DATA_TYPE_TAG, value)) {
                 Log.e(TAG, "KeyDataPath value was not parsed properly, check recipe.");
                 throw new TranslationException("Tried to set an invalid member variable during " +
-                                                       "translation: " + Recipe.KEY_DATA_TYPE_TAG);
+                        "translation: " + Recipe.KEY_DATA_TYPE_TAG);
             }
         }
         // Check if the recipe states that this content is live and add to object if so.
         // @TODO: Expand configuration handling with DEVTECH-2618.
         if (recipe.containsItem(Recipe.LIVE_FEED_TAG)) {
             setMemberVariable(object, Recipe.LIVE_FEED_TAG,
-                              recipe.getItemAsBoolean(Recipe.LIVE_FEED_TAG));
+                    recipe.getItemAsBoolean(Recipe.LIVE_FEED_TAG));
         }
 
         // Check if the recipe states that this content is free and add to object if so.
@@ -134,7 +152,7 @@ public abstract class AModelTranslator<E> {
             if (value != null && !setMemberVariable(object, Recipe.CONTENT_TYPE_TAG, value)) {
                 Log.e(TAG, "contentType value was not parsed properly, check recipe.");
                 throw new TranslationException("Tried to set an invalid member variable during " +
-                                                       "translation: " + Recipe.CONTENT_TYPE_TAG);
+                        "translation: " + Recipe.CONTENT_TYPE_TAG);
             }
         }
 

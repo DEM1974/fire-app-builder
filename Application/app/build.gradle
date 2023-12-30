@@ -84,6 +84,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     androidTestImplementation 'junit:junit:4.12'
     androidTestImplementation 'org.mockito:mockito-core:1.9.5'
+
     androidTestImplementation ('com.android.support.test:rules:0.5') {
         exclude group: 'com.android.support', module: 'support-annotations'
     }
@@ -98,8 +99,9 @@ dependencies {
     implementation project(':TVUIComponent')
     implementation project(':UAMP')
     implementation project(':AMZNMediaPlayerComponent')
-    implementation project(':PassThroughAdsComponent')
+    implementation project(':VastAdsComponent')
     implementation project(':PassThroughLoginComponent')
     implementation project(':LoggerAnalyticsComponent')
+    implementation project(':MiniBrowser')
     androidTestImplementation project(path: ':ContentBrowser')
 }

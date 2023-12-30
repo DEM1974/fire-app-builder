@@ -110,7 +110,7 @@ public class ContentTranslator extends AModelTranslator<Content> {
                     model.setChannelId(value.toString());
                     break;
                 case Content.DURATION_FIELD_NAME:
-                    model.setDuration(Long.valueOf((String) value));
+                    model.setDuration(Long.valueOf(String.valueOf(value)));
                     break;
                 case Content.AD_CUE_POINTS_FIELD_NAME:
                     model.setAdCuePoints((List) value);

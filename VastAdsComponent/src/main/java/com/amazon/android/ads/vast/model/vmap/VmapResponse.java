@@ -177,7 +177,7 @@ public class VmapResponse {
      * @param adBreaks The ad breaks.
      */
     public void setAdBreaks(List<AdBreak> adBreaks) {
-
+        Log.d(TAG, "setAdBreaks: " + adBreaks);
         mAdBreaks = adBreaks;
     }
 

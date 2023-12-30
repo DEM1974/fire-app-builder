@@ -128,6 +128,7 @@ public class JsonParser implements IParser {
             // Catch and log an exception for an invalid query, but throw it back so the user
             // can catch it as well.
             catch (PathNotFoundException e) {
+                e.printStackTrace();
                 Log.e(TAG, "The provided query string is not valid for the given json.", e);
                 throw new InvalidQueryException("The provided query string is not valid for " +
                                                         "the given json: " + query, e);

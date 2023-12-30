@@ -14,6 +14,8 @@
  */
 package com.amazon.android.ads.vast.model.vast;
 
+import android.util.Log;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,18 +57,24 @@ public class VideoClicks {
     public VideoClicks(Map<String, Map> videoClicksMap) {
 
         if (videoClicksMap != null) {
-
-            Map<String, Map> clickThroughMap = videoClicksMap.get(CLICK_THROUGH_KEY);
-            if (clickThroughMap != null) {
-                getVideoClickElements().put(CLICK_THROUGH_KEY, new ClickElement(clickThroughMap));
+            if(videoClicksMap.get(CLICK_THROUGH_KEY) instanceof Map) {
+                Map<String, Map> clickThroughMap = videoClicksMap.get(CLICK_THROUGH_KEY);
+                if (clickThroughMap != null) {
+                    getVideoClickElements().put(CLICK_THROUGH_KEY, new ClickElement(clickThroughMap));
+                }
             }
-            Map<String, Map> clickTrackingMap = videoClicksMap.get(CLICK_TRACKING_KEY);
-            if (clickTrackingMap != null) {
-                getVideoClickElements().put(CLICK_TRACKING_KEY, new ClickElement(clickTrackingMap));
+            Log.d(TAG, "VideoClicks: " + videoClicksMap.get(CLICK_TRACKING_KEY));
+            if(videoClicksMap.get(CLICK_TRACKING_KEY) instanceof Map) {
+                Map<String, Map> clickTrackingMap = videoClicksMap.get(CLICK_TRACKING_KEY);
+                if (clickTrackingMap != null) {
+                    getVideoClickElements().put(CLICK_TRACKING_KEY, new ClickElement(clickTrackingMap));
+                }
             }
-            Map<String, Map> customClickMap = videoClicksMap.get(CUSTOM_CLICK_KEY);
-            if (customClickMap != null) {
-                getVideoClickElements().put(CUSTOM_CLICK_KEY, new ClickElement(customClickMap));
+            if(videoClicksMap.get(CUSTOM_CLICK_KEY) instanceof Map) {
+                Map<String, Map> customClickMap = videoClicksMap.get(CUSTOM_CLICK_KEY);
+                if (customClickMap != null) {
+                    getVideoClickElements().put(CUSTOM_CLICK_KEY, new ClickElement(customClickMap));
+                }
             }
         }
     }

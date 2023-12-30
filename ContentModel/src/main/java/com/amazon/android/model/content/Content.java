@@ -650,9 +650,20 @@ public class Content implements Serializable {
      *
      * @param adCuePoints Ad Cue points list.
      */
-    public void setAdCuePoints(List<Integer> adCuePoints) {
+    public void setAdCuePoints(List<String> adCuePoints) {
+        List<Integer> secondsList = new ArrayList<>();
 
-        mAdCuePoints = adCuePoints;
+        for (String timestamp : adCuePoints) {
+            String[] parts = timestamp.split(":");
+            int hours = Integer.parseInt(parts[0]);
+            int minutes = Integer.parseInt(parts[1]);
+            int seconds = Integer.parseInt(parts[2]);
+
+            secondsList.add((hours * 3600 + minutes * 60 + seconds));
+            
+        }
+        Log.d(TAG, "setAdCuePoints: " + secondsList);
+        mAdCuePoints = secondsList;
     }
 
     /**

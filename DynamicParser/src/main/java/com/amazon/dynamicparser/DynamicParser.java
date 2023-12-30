@@ -674,6 +674,7 @@ public class DynamicParser implements IRecipeCooker {
 
             try {
                 // Translate the map to the model.
+                Log.d(TAG, "translateMapToModel: " + map);
                 return translator.mapToModel(map, recipe);
             }
             catch (AModelTranslator.TranslationException e) {

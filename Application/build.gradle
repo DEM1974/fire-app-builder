@@ -18,6 +18,7 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        maven {url 'https://jitpack.io'}
         jcenter()
     }
     dependencies {
@@ -32,8 +33,11 @@ allprojects {
         google()
         jcenter()
         mavenCentral()
+        maven {url 'https://jitpack.io'}
         if (rootProject.hasProperty('mavenUrl')) {
             maven { url rootProject.mavenUrl }
         }
     }
 }
+
+

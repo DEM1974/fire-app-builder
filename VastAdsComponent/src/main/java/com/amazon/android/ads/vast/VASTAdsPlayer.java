@@ -1287,6 +1287,7 @@ public class VASTAdsPlayer implements IAds,
         mPlayedPostRollAds = false;
 
         List<AdBreak> midRollAdBreaks = mAdResponse.getMidRollAdBreaks(videoDuration);
+
         for (AdBreak midRoll : midRollAdBreaks) {
             long offset = (long) midRoll.getConvertedTimeOffset(videoDuration);
             if (!mMidRollAds.containsKey(offset)) {
@@ -1308,7 +1309,6 @@ public class VASTAdsPlayer implements IAds,
      * ads.
      */
     public int getCurrentContentSegmentNumber(long position, long duration) {
-
         if (mMidRollAds == null) {
             setMidAndPostRollAds(duration);
         }

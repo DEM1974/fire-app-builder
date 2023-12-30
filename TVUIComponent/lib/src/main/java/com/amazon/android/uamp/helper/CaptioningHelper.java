@@ -14,14 +14,13 @@
  */
 package com.amazon.android.uamp.helper;
 
-import com.google.android.exoplayer.text.CaptionStyleCompat;
-import com.google.android.exoplayer.text.SubtitleLayout;
+import android.content.Context;
+import android.view.accessibility.CaptioningManager;
 
 import com.amazon.android.uamp.constants.PreferencesConstants;
 import com.amazon.android.utils.Preferences;
-
-import android.content.Context;
-import android.view.accessibility.CaptioningManager;
+import com.google.android.exoplayer.text.CaptionStyleCompat;
+import com.google.android.exoplayer.text.SubtitleLayout;
 
 /**
  * Captioning helper class.
