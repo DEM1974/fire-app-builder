@@ -115,15 +115,15 @@ public class VastResponse {
                 Log.d(TAG, "No ad found in vast response");
                 return vastResponse;
             }
-
+            Log.d(TAG, "createInstance: " + adElementObject);
             if (adElementObject instanceof List) {
                 for (Map<String, Map> map : (List<Map<String, Map>>) adElementObject) {
-                    vastResponse.getAdElements().add(AdElement.createInstance(map));
+                    AdElement adElement = AdElement.createInstance(map);
+                    vastResponse.getAdElements().add(adElement);
                 }
             }
             else {
-                vastResponse.getAdElements().add(AdElement.createInstance((Map<String, Map>)
-                                                                                  adElementObject));
+                vastResponse.getAdElements().add(AdElement.createInstance((Map<String, Map>)  adElementObject));
             }
         }
         return vastResponse;

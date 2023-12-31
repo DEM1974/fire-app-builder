@@ -120,24 +120,25 @@ public class AdElement implements Comparable<AdElement> {
         // Add the creative's tracking events from the wrapper to the inline ad.
         Map<String, Map> trackingEventsMap =
                 PathHelper.getMapByPath((Map) wrapperMap, TRACKING_EVENTS_PATH);
-
-        // Add the impression, error url, and tracking events to each creative of each inline add.
-        for (Map trackingMap : (List<Map>) trackingEventsMap.get(VmapHelper.TRACKING_KEY)) {
-            for (Creative creative : wrappedAdElement.getInlineAd().getCreatives()) {
-                creative.getVastAd().addTrackingEvent(new Tracking(trackingMap));
+        if (wrappedAdElement != null) {
+            // Add the impression, error url, and tracking events to each creative of each inline add.
+            for (Map trackingMap : (List<Map>) trackingEventsMap.get(VmapHelper.TRACKING_KEY)) {
+                for (Creative creative : wrappedAdElement.getInlineAd().getCreatives()) {
+                    creative.getVastAd().addTrackingEvent(new Tracking(trackingMap));
+                }
             }
+            // Add the impression to the inline
+            if (wrapperMap.containsKey(VmapHelper.IMPRESSION_KEY)) {
+                wrappedAdElement.getInlineAd().getImpressions().addAll(
+                        VmapHelper.getStringListFromMap(wrapperMap, VmapHelper.IMPRESSION_KEY));
+            }
+            // Add the error url to the inline
+            if (wrapperMap.containsKey(VmapHelper.ERROR_ELEMENT_KEY)) {
+                wrappedAdElement.getInlineAd().getErrorUrls().addAll(
+                        VmapHelper.getStringListFromMap(wrapperMap, VmapHelper.ERROR_ELEMENT_KEY));
+            }
+            adElement.setInlineAd(wrappedAdElement.getInlineAd());
         }
-        // Add the impression to the inline
-        if (wrapperMap.containsKey(VmapHelper.IMPRESSION_KEY)) {
-            wrappedAdElement.getInlineAd().getImpressions().addAll(
-                    VmapHelper.getStringListFromMap(wrapperMap, VmapHelper.IMPRESSION_KEY));
-        }
-        // Add the error url to the inline
-        if (wrapperMap.containsKey(VmapHelper.ERROR_ELEMENT_KEY)) {
-            wrappedAdElement.getInlineAd().getErrorUrls().addAll(
-                    VmapHelper.getStringListFromMap(wrapperMap, VmapHelper.ERROR_ELEMENT_KEY));
-        }
-        adElement.setInlineAd(wrappedAdElement.getInlineAd());
     }
 
     /**

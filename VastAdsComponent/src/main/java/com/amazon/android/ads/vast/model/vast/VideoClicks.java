@@ -1,12 +1,12 @@
 /**
  * Copyright 2015-2016 Amazon.com, Inc. or its affiliates. All Rights Reserved.
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * A copy of the License is located at
- *
- *     http://aws.amazon.com/apache2.0/
- *
+ * <p>
+ * http://aws.amazon.com/apache2.0/
+ * <p>
  * or in the "license" file accompanying this file. This file is distributed
  * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
  * express or implied. See the License for the specific language governing
@@ -17,6 +17,7 @@ package com.amazon.android.ads.vast.model.vast;
 import android.util.Log;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -57,20 +58,41 @@ public class VideoClicks {
     public VideoClicks(Map<String, Map> videoClicksMap) {
 
         if (videoClicksMap != null) {
-            if(videoClicksMap.get(CLICK_THROUGH_KEY) instanceof Map) {
+            if (videoClicksMap.get(CLICK_THROUGH_KEY) instanceof List) {
+                for (Map<String, Map> map : (List<Map<String, Map>>) videoClicksMap.get(CLICK_THROUGH_KEY)) {
+                    Map<String, Map> clickTrackingMap = map.get(CLICK_THROUGH_KEY);
+                    if (clickTrackingMap != null) {
+                        getVideoClickElements().put(CLICK_THROUGH_KEY, new ClickElement(clickTrackingMap));
+                    }
+                }
+            } else if (videoClicksMap.get(CLICK_THROUGH_KEY) instanceof Map) {
                 Map<String, Map> clickThroughMap = videoClicksMap.get(CLICK_THROUGH_KEY);
                 if (clickThroughMap != null) {
                     getVideoClickElements().put(CLICK_THROUGH_KEY, new ClickElement(clickThroughMap));
                 }
             }
             Log.d(TAG, "VideoClicks: " + videoClicksMap.get(CLICK_TRACKING_KEY));
-            if(videoClicksMap.get(CLICK_TRACKING_KEY) instanceof Map) {
+            if (videoClicksMap.get(CLICK_TRACKING_KEY) instanceof List) {
+                for (Map<String, Map> map : (List<Map<String, Map>>) videoClicksMap.get(CLICK_TRACKING_KEY)) {
+                    Map<String, Map> clickTrackingMap = map.get(CLICK_TRACKING_KEY);
+                    if (clickTrackingMap != null) {
+                        getVideoClickElements().put(CLICK_TRACKING_KEY, new ClickElement(clickTrackingMap));
+                    }
+                }
+            } else if (videoClicksMap.get(CLICK_TRACKING_KEY) instanceof Map) {
                 Map<String, Map> clickTrackingMap = videoClicksMap.get(CLICK_TRACKING_KEY);
                 if (clickTrackingMap != null) {
                     getVideoClickElements().put(CLICK_TRACKING_KEY, new ClickElement(clickTrackingMap));
                 }
             }
-            if(videoClicksMap.get(CUSTOM_CLICK_KEY) instanceof Map) {
+            if (videoClicksMap.get(CUSTOM_CLICK_KEY) instanceof List) {
+                for (Map<String, Map> map : (List<Map<String, Map>>) videoClicksMap.get(CUSTOM_CLICK_KEY)) {
+                    Map<String, Map> clickTrackingMap = map.get(CUSTOM_CLICK_KEY);
+                    if (clickTrackingMap != null) {
+                        getVideoClickElements().put(CUSTOM_CLICK_KEY, new ClickElement(clickTrackingMap));
+                    }
+                }
+            } else if (videoClicksMap.get(CUSTOM_CLICK_KEY) instanceof Map) {
                 Map<String, Map> customClickMap = videoClicksMap.get(CUSTOM_CLICK_KEY);
                 if (customClickMap != null) {
                     getVideoClickElements().put(CUSTOM_CLICK_KEY, new ClickElement(customClickMap));

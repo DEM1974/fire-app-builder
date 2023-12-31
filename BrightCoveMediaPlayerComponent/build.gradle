@@ -44,22 +44,20 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.1.1'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:23.1.1'
 
     //Load the version based on user defined in gradle.properties or default
-    if (rootProject.hasProperty('compileUrl')) {
-        compile rootProject.compileUrl
-    } else {
-        compile 'com.brightcove.player:exoplayer:5.0.3'
-    }
+    implementation 'com.google.android.exoplayer:exoplayer:2.11.8'
 
-    compile project(':ModuleInterface')
-    compile project(':UAMP')
+    implementation project(':ModuleInterface')
+    implementation project(':UAMP')
 }
 
 repositories {
     jcenter()
     mavenCentral()
-    maven { url 'http://repo.brightcove.com/releases' }
+        maven {
+        url "https://repo.brightcove.com/releases"
+    }
 }
