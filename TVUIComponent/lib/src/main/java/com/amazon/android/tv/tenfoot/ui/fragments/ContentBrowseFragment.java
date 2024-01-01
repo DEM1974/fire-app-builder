@@ -68,10 +68,8 @@ public class ContentBrowseFragment extends RowsFragment {
     private static final String TAG = ContentBrowseFragment.class.getSimpleName();
     private static final int WAIT_BEFORE_FOCUS_REQUEST_MS = 500;
     private OnBrowseRowListener mCallback;
-    private ArrayObjectAdapter mSettingsAdapter = null;
     private ListRow mRecentListRow = null;
     private ListRow mWatchlistListRow = null;
-    private int mLoginButtonIndex;
 
     // Container Activity must implement this interface.
     public interface OnBrowseRowListener {
@@ -103,8 +101,6 @@ public class ContentBrowseFragment extends RowsFragment {
         ArrayObjectAdapter rowsAdapter = new ArrayObjectAdapter(customListRowPresenter);
 
         BrowseHelper.loadRootContentContainer(getActivity(), rowsAdapter);
-        mSettingsAdapter = BrowseHelper.addSettingsActionsToRowAdapter(getActivity(), rowsAdapter);
-        mLoginButtonIndex = BrowseHelper.getLoginButtonIndex(mSettingsAdapter);
 
         setAdapter(rowsAdapter);
 
@@ -148,29 +144,6 @@ public class ContentBrowseFragment extends RowsFragment {
     @Subscribe
     public void onAuthenticationStatusUpdateEvent(AuthHelper.AuthenticationStatusUpdateEvent
                                                           authenticationStatusUpdateEvent) {
-
-        if (mSettingsAdapter != null) {
-            if (mLoginButtonIndex != -1) {
-                mSettingsAdapter.notifyArrayItemRangeChanged(mLoginButtonIndex, 1);
-
-                // Update the details preview if the action occurred from the home screen.
-                if (Preferences.getString(PreferencesConstants.LAST_ACTIVITY)
-                               .equals(ContentBrowser.CONTENT_HOME_SCREEN)) {
-                    if (authenticationStatusUpdateEvent.isUserAuthenticated()) {
-                        ((ContentBrowseActivity) getActivity()).callImageLoadSubscription(
-                                getString(R.string.logout_label),
-                                getString(R.string.logout_description),
-                                null);
-                    }
-                    else {
-                        ((ContentBrowseActivity) getActivity()).callImageLoadSubscription(
-                                getString(R.string.login_label),
-                                getString(R.string.login_description),
-                                null);
-                    }
-                }
-            }
-        }
     }
 
     private final class ItemViewClickedListener implements OnItemViewClickedListener {

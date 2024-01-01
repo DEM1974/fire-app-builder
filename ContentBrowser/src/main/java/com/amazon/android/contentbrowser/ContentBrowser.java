@@ -585,7 +585,7 @@ public class ContentBrowser implements IContentBrowser, ICancellableLoad {
 
         addWidgetsAction(createSearchAction());
         //addWidgetsAction(createSlideShowAction());
-        addSettingsAction(createTermsOfUseSettingsAction());
+        //addSettingsAction(createTermsOfUseSettingsAction());
         //addSettingsAction(createSlideShowSettingAction());
         setupLogoutAction();
         

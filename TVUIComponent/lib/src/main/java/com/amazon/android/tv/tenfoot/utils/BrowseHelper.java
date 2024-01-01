@@ -61,54 +61,6 @@ public class BrowseHelper {
     }
 
     /**
-     * Adds the settings actions to an adapter and adds the adapter to the row adapter.
-     *
-     * @param activity   The activity.
-     * @param rowAdapter The row adapter.
-     */
-    public static ArrayObjectAdapter addSettingsActionsToRowAdapter(Activity activity,
-                                                                    ArrayObjectAdapter rowAdapter) {
-
-        List<Action> settings = ContentBrowser.getInstance(activity).getSettingsActions();
-
-        if (settings == null || settings.isEmpty()) {
-            Log.d(TAG, "No settings were found");
-            return null;
-        }
-
-        SettingsCardPresenter cardPresenter = new SettingsCardPresenter();
-        ArrayObjectAdapter settingsAdapter = new ArrayObjectAdapter(cardPresenter);
-
-        for (Action item : settings) {
-            settingsAdapter.add(item);
-        }
-        // Create settings header and row.
-        HeaderItem header = new HeaderItem(0, activity.getResources()
-                                                      .getString(R.string.settings_title));
-        rowAdapter.add(new ListRow(header, settingsAdapter));
-
-        return settingsAdapter;
-    }
-
-    /**
-     * Get the index of the login/logout button from the settings row adapter.
-     *
-     * @param settingsAdapter The settings row adapter.
-     * @return The index of the login/logout button or -1 if it was not found.
-     */
-    public static int getLoginButtonIndex(ArrayObjectAdapter settingsAdapter) {
-
-        for (int i = 0; i < settingsAdapter.size(); i++) {
-
-            Action action = (Action) settingsAdapter.get(i);
-            if (action.getAction().equals(ContentBrowser.LOGIN_LOGOUT)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    /**
      * Loads the content from the root content container into the rows adapter.
      *
      * @param activity    The activity.
@@ -157,7 +109,7 @@ public class BrowseHelper {
             int maxItems = ContentBrowser.getInstance(activity).getMaxNumberOfRecentItems();
 
             return updateListRow(activity.getApplicationContext(), rowsAdapter, recentListRow,
-                                 recentContent, rowsAdapter.size() - 1, R.string.recent_row,
+                                 recentContent, rowsAdapter.size(), R.string.recent_row,
                                  maxItems);
 
         }
@@ -184,7 +136,7 @@ public class BrowseHelper {
                                                          .getWatchlistContent();
 
             // This row should be inserted before the settings row and the recent row if present.
-            int rowIndex = recentListRow == null ? rowsAdapter.size() - 1 : rowsAdapter.size() - 2;
+            int rowIndex = recentListRow == null ? rowsAdapter.size() : rowsAdapter.size() - 1;
             Log.d(TAG, "Inserting watchlist row at index " + rowIndex);
             return updateListRow(activity.getApplicationContext(), rowsAdapter, watchlistListRow,
                                  watchlistItems, rowIndex, R.string.watchlist_row,

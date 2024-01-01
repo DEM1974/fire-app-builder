@@ -72,10 +72,8 @@ public class FullContentBrowseFragment extends BrowseFragment {
     private ArrayObjectAdapter mRowsAdapter;
     private Drawable mDefaultBackground;
     private BackgroundManager mBackgroundManager;
-    private ArrayObjectAdapter mSettingsAdapter;
     private ListRow mRecentListRow = null;
     private ListRow mWatchlistListRow = null;
-    private int mLoginButtonIndex;
 
 
     @Override
@@ -86,8 +84,6 @@ public class FullContentBrowseFragment extends BrowseFragment {
         EventBus.getDefault().register(this);
         mRowsAdapter = new ArrayObjectAdapter(new CustomListRowPresenter());
         BrowseHelper.loadRootContentContainer(getActivity(), mRowsAdapter);
-        mSettingsAdapter = BrowseHelper.addSettingsActionsToRowAdapter(getActivity(), mRowsAdapter);
-        mLoginButtonIndex = BrowseHelper.getLoginButtonIndex(mSettingsAdapter);
 
         setAdapter(mRowsAdapter);
 
@@ -180,12 +176,6 @@ public class FullContentBrowseFragment extends BrowseFragment {
     @Subscribe
     public void onAuthenticationStatusUpdateEvent(AuthHelper.AuthenticationStatusUpdateEvent
                                                           authenticationStatusUpdateEvent) {
-
-        if (mSettingsAdapter != null) {
-            if (mLoginButtonIndex != -1) {
-                mSettingsAdapter.notifyArrayItemRangeChanged(mLoginButtonIndex, 1);
-            }
-        }
     }
 
     private void setupEventListeners() {
@@ -253,12 +243,6 @@ public class FullContentBrowseFragment extends BrowseFragment {
                 ContentBrowser.getInstance(getActivity())
                               .setLastSelectedContentContainer(contentContainer)
                               .switchToScreen(ContentBrowser.CONTENT_SUBMENU_SCREEN);
-            }
-            else if (item instanceof Action) {
-                Action settingsItemModel = (Action) item;
-                Log.d(TAG, "Settings with title " + settingsItemModel.getAction() + " was clicked");
-                ContentBrowser.getInstance(getActivity())
-                              .settingsActionTriggered(getActivity(), settingsItemModel);
             }
         }
     }
