@@ -14,7 +14,7 @@ permissions and limitations under the License.
 -->
 <resources>
     <!-- Sample single pre, 3 mids, and single post ads -->
-    <string name="ad_tag">https://g.adspeed.net/ad.php?do=vast&amp;zid=122603&amp;oid=28121&amp;wd=-1&amp;ht=-1&amp;vastver=3&amp;num=4&amp;maxad=6&amp;dur=120&amp;cb=%%CACHEBUSTER%%&amp;custom=%%ADVERTISING_IDENTIFIER_IS_LAT%%&amp;custom1=%%ADVERTISING_IDENTIFIER_PLAIN%%&amp;custom2=testApp&amp;custom3=1&amp;custom4=[ASZoneID]&amp;custom5=[device_ua]&amp;custom6=[ASAdID]&amp;custom7=[timestamp]&amp;custom8=[device_ip]&amp;custom9=[COPPA]&amp;custom10=[CONTENT_GENRE]&amp;custom11=[CONTENT_LENGTH]&amp;custom12=[LOCALE]&amp;custom13=[referrer_url]&amp;custom14=[referrer_domain]</string>
+    <string name="ad_tag">https://g.adspeed.net/ad.php?do=vast&amp;zid=122603&amp;oid=28121&amp;wd=-1&amp;ht=-1&amp;vastver=3&amp;num=4&amp;maxad=6&amp;dur=120&amp;cb=%%CACHEBUSTER%%&amp;custom=%%ADVERTISING_IDENTIFIER_IS_LAT%%&amp;custom1=%%ADVERTISING_IDENTIFIER_PLAIN%%&amp;custom2=[APPBUNDLE]&amp;custom3=%%ADVERTISING_IDENTIFIER_TYPE%%&amp;custom4=%%ADVERTISING_IDENTIFIER_TYPE%%&amp;custom5=%%USER_AGENT%%&amp;custom6=%%VIDEO_ID%%&amp;custom7=[TIMESTAMP]&amp;custom8=%%USER_IP%%&amp;custom9=%%TFCD%%&amp;custom10=%%IAB_CATEGORIES%%&amp;custom11=%%VIDEO_DURATION%%&amp;custom12=[LOCALE]&amp;custom13=%%PATTERN:url%%&amp;custom14=%%SITE%%</string>
     <!-- Key event handling on ad screen is not enabled by default, set value true to enable key events on ad view. -->
     <bool name="enable_key_events_on_ad_view">true</bool>
     <!-- Overlay to display current media state on ad screen is not enabled by default, set value true to enable it on ad view. -->
